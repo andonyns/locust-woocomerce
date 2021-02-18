@@ -3,13 +3,12 @@ import json
 from locust import HttpUser, task, between
 from locust.contrib.fasthttp import FastHttpUser
 
-#class WebsiteUser(FastHttpUser):
-#    wait_time = between(1, 5)
-
-#    @task
-#    def index_page(self):
-#        self.client.get(url="/")
-
+class WebsiteUser(FastHttpUser):
+    wait_time = between(1, 5)
+    
+    @task
+    def index_page(self):
+        self.client.get(path="/")
 
 class AddProduct(FastHttpUser):
     userInfo = {}
