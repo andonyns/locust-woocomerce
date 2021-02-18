@@ -17,6 +17,7 @@ class AddProduct(FastHttpUser):
     
     def on_start(self):
     	with open("./user.json") as f:
+    	    global userInfo
     	    userInfo = json.load(f)
     	    
     	self.client.post(path="login", json={"username": userInfo['username'], "password": userInfo['password']})
@@ -25,8 +26,7 @@ class AddProduct(FastHttpUser):
     def index(self):
         with open("./order.json") as o:
     	    orderData = json.load(o)
-    	
-    	print(orderData)
-    	self.client.request(method="POST", path="wp-json/wc/v3/orders", name="order",auth=(userInfo['username'], userInfo['password']), json=orderData)
-    	self.client.request(method="GET", path="my-account/cart", name="cart")
+    	    
+        self.client.request(method="POST", path="wp-json/wc/v3/orders", name="order",auth=(userInfo['username'], userInfo['password']), json = orderData)
+        self.client.request(method="GET", path="my-account/cart", name="cart")
 
